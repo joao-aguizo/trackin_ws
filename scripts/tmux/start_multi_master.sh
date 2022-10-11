@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# SOURCE: https://github.com/ctu-mrs
+
 ### BEGIN INIT INFO
 # Provides: tmux
 # Required-Start:    $local_fs $network dbus
