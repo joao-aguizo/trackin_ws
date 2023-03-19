@@ -1,0 +1,75 @@
+Bootstrap: docker
+From: osrf/ros:noetic-desktop-full-focal
+
+# Container RUNTIME setup of environment.
+# NOTE: These variables are not made available during BUILD
+# time, for define them as well in the '%post' section.
+%environment
+    export LC_ALL=C
+    export SIF_NAME='simulation'
+
+# Tool downloading and installations, write configurations, create directories, etc.
+# NOTE: Should be used to setup BUILD time environment variables.
+%post
+    apt-get update
+    
+    apt-get install -y \
+        ros-$ROS_DISTRO-gazebo-ros-pkgs \
+        ros-$ROS_DISTRO-gazebo-ros-control \
+        ros-$ROS_DISTRO-husky-desktop \
+        ros-$ROS_DISTRO-husky-simulator \
+        ros-$ROS_DISTRO-teleop-twist-keyboard \
+        dbus
+
+    # install SDL lib (https://github.com/ros-planning/navigation/issues/579)
+    apt-get install -y \
+        libsdl-image1.2-dev \
+        libsdl-dev
+
+    # install GTSAM lib (https://github.com/TixiaoShan/LIO-SAM#dependency)
+    apt-get install -y software-properties-common
+    add-apt-repository ppa:borglab/gtsam-release-4.0
+    apt install -y \
+        libgtsam-dev \
+        libgtsam-unstable-dev
+    
+    # other useful tools
+    apt-get install -y \
+        moreutils \
+        python3-catkin-tools \
+        python3-psutil \
+        vim \
+        nano \
+        zsh \
+        ranger \
+        tmux \
+        git
+
+    # link configuration file for the MRS env
+    ln -s /opt/host/99-sim_env.sh /.singularity.d/env/99-sim_env.sh
+
+# Called upon container 'singularity run' command.
+# NOTE: The content of this section is written in a file inside the container, so
+# that it can be run once the aforementioned command is issued.
+%runscript
+    CMD="${@}"
+    
+    if [ -z "${CMD}" ]; then
+        /bin/bash --login
+    else
+        /bin/bash --login -c "${CMD}"
+    fi
+
+    exit 0
+
+# Adds metadata to the container inside '/.singularity.d/labels.json'.
+%labels
+    Author joaoaguizo@gmail.com
+    Version v0.0.1
+
+# Adds metadata into the container that can be accessed through 
+# 'singularity run-help' command.
+%help
+    Singularity image built from ROS Noetic with Gazebo 11, Husky packages and gazebo_ros_pkgs.
+
+

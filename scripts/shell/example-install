@@ -1,6 +1,0 @@
-#!/bin/bash
-
-echo "Starting example installation..."
-sleep 5
-echo "Finished example installation successfully!"
-exit 0

@@ -29,11 +29,11 @@ MAIN_DIR=~/"bag_files"
 
 # the project name
 # * is used to define folder name in ~/$MAIN_DIR
-PROJECT_NAME=solarcleano_server
+PROJECT_NAME=example
 
 # the name of the TMUX session
 # * can be used for attaching as 'tmux a -t <session name>'
-SESSION_NAME="server_0"
+SESSION_NAME="example_0"
 
 # the IP of the server
 # * using this, depending on your use case, might be preferable over 
@@ -47,10 +47,9 @@ pre_input="mkdir -p $MAIN_DIR/$PROJECT_NAME; \
 export SERVER=$SESSION_NAME; \
 export SERVER_IP=$SESSION_IP; \
 export DIR_PATH=$DIR_PATH; \
-export ROS_NAMESPACE=/$SESSION_NAME; \
-source $DIR_PATH/config/hdw.sh; \
-source $DIR_PATH/config/sftw.sh; \
-source $DIR_PATH/addons.sh; \
+export ROS_NAMESPACE=$SESSION_NAME; \
+source $DIR_PATH/config/example.sh; \
+source $DIR_PATH/../../singularity/mount/addons.sh; \
 source $DIR_PATH/../../devel/setup.bash"
 
 # define commands
@@ -59,7 +58,7 @@ source $DIR_PATH/../../devel/setup.bash"
 # * "new line" after the command    => the command will be called after start
 # * NO "new line" after the command => the command will wait for user's <enter>
 input=(
-  'Option' 'waitForRos; echo MULTI
+  'Option' 'waitForRos; echo EXAMPLE
 '
   'roscore' 'checkRos || roscore && exit
 '
