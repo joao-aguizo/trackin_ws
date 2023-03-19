@@ -1,17 +1,15 @@
-tmux_abs_dir := $(shell cd ./scripts/tmux; pwd)
+mount_abs_dir := $(shell cd ./singularity/mount; pwd)
 
-exec-multi:
-	./scripts/tmux/start_multi_master.sh
+build:
+	bash -c "catkin config --extend /opt/ros/${ROS_DISTRO} && catkin build"
 
-exec-single:
-	./scripts/tmux/start_single_master.sh
+execute:
+	./scripts/tmux/start_example.sh
 
 install-ws:
 	cp -i ./scripts/tmux/config/tmux.conf ${HOME}/.tmux.conf
-	echo 'source ${tmux_abs_dir}/addons.sh' >> ${HOME}/.bashrc
+	echo 'source ${mount_abs_dir}/addons.sh' >> ${HOME}/.bashrc
 	wstool update -t src/
-	catkin config --extend /opt/ros/${ROS_DISTRO}
-	catkin build
 
 install-deps:
-	bash -c "./scripts/shell/example-install"
+	bash -c "./scripts/install/install_example.sh"
