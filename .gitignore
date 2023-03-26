@@ -1,0 +1,10 @@
+build/
+devel/
+logs/
+.catkin_tools/
+
+# all in src/ folder
+src/*
+
+# do not ignore the following files
+!.rosinstall
