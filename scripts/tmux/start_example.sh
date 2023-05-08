@@ -18,10 +18,22 @@ source $HOME/.bashrc
 
 # location of the running script
 DIR_PATH=$(cd $(dirname $0); pwd)
+echo $DIR_PATH
+
+# location of the configuration file
+CUSTOM_CONFIG_FILE_NAME='example.sh'
+EXAMPLE_CONFIG_FILE_NAME="tmpl_$CUSTOM_CONFIG_FILE_NAME"
+CONFIG_FILE_DIR="$(cd $DIR_PATH/config; pwd)"
 
 # check if workspace was built
 [[ -f $DIR_PATH/../../devel/setup.bash ]] ||
 { echo "Build the workspace first!"; exit 1; }
+
+# check if custom dataset configurations are defined
+[[ -f "$CONFIG_FILE_DIR/$CUSTOM_CONFIG_FILE_NAME" ]] || 
+{ cp "$CONFIG_FILE_DIR/$EXAMPLE_CONFIG_FILE_NAME" "$CONFIG_FILE_DIR/$CUSTOM_CONFIG_FILE_NAME" &&
+echo -e "\e[1;33mDefault dataset configuration! \
+Configure '$CONFIG_FILE_DIR/$CUSTOM_CONFIG_FILE_NAME' first!\e[0m" && exit 1; }
 
 # location for storing the bag files
 # * do not change unless you know what you are doing
