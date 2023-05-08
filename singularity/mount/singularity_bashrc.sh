@@ -119,7 +119,7 @@ if [ -e /opt/ros/$ROS_DISTRO/setup.bash ]; then
 fi
 
 # source the user_workspace, if it exists
-[ -e ~/"$SIF_NAME"_ws/devel/setup.bash ] && source ~/"$SIF_NAME"_ws/devel/setup.bash
+[ -e ~/ros_ws/devel/setup.bash ] && source ~/ros_ws/devel/setup.bash
 
 [ -z "$ROS_PORT" ] && export ROS_PORT=11311
 [ -z "$ROS_MASTER_URI" ] && export ROS_MASTER_URI=http://localhost:$ROS_PORT
