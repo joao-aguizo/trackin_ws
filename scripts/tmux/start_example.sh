@@ -18,7 +18,6 @@ source $HOME/.bashrc
 
 # location of the running script
 DIR_PATH=$(cd $(dirname $0); pwd)
-echo $DIR_PATH
 
 # location of the configuration file
 CUSTOM_CONFIG_FILE_NAME='example.sh'

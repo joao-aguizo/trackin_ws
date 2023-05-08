@@ -1,0 +1,82 @@
+Bootstrap: docker
+From: ubuntu:16.04
+
+# =======================
+# global
+# =======================
+%labels
+    Author joaoaguizo@gmail.com
+    Version v0.0.1
+
+%help
+    Example recipe based on the official guides on how to build a container. This recipe contains three apps: fortune, cowsay and lowcat.
+    For more information check: https://docs.sylabs.io/guides/3.11/user-guide/build_a_container.html.
+
+%post
+    apt-get -y update
+
+    # link configuration file for custom environment
+    ln -s /opt/host/99-sim_env.sh /.singularity.d/env/99-sim_env.sh
+
+%environment
+    export LC_ALL=C
+    export PATH=/usr/games:$PATH
+
+%runscript
+    CMD="${@}"
+    
+    if [ -z "${CMD}" ]; then
+        /bin/bash --login
+    else
+        /bin/bash --login -c "${CMD}"
+    fi
+
+    exit 0
+
+# =======================
+# fortune
+# =======================
+%appinstall fortune
+    apt-get -y install fortune
+
+%appenv fortune
+    BEST_APP=fortune
+    export BEST_APP
+
+%apphelp fortune
+    fortune is the best app
+
+%apprun fortune
+    fortune "$@"
+
+# =======================
+# cowsay
+# =======================
+%appinstall cowsay
+    apt-get -y install cowsay
+
+%appenv cowsay
+    BEST_APP=cowsay
+    export BEST_APP
+
+%apphelp cowsay
+    cowsay is the best app
+
+%apprun cowsay
+    cowsay "$@"
+
+# =======================
+# lolcat
+# =======================
+%appinstall lolcat
+    apt-get -y install lolcat
+
+%appenv lolcat
+    BEST_APP=lolcat
+    export BEST_APP
+
+%apphelp lolcat
+    lolcat is the best app
+
+%apprun lolcat
+    lolcat "$@"

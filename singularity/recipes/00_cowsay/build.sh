@@ -8,5 +8,5 @@ singularity build \
     --fakeroot \
     --fix-perms \
     -F \
-    $REPO_PATH/images/simulation.sif \
+    $REPO_PATH/images/cowsay.sif \
     $THIS_PATH/recipe.def
