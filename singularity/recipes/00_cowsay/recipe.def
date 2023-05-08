@@ -22,6 +22,9 @@ From: ubuntu:16.04
     export LC_ALL=C
     export PATH=/usr/games:$PATH
 
+    # defines the string that is shown in-between '[]' on a shell session
+    export SIF_NAME='cowsay'
+
 %runscript
     CMD="${@}"
     
