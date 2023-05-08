@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu:16.04
+From: ros:noetic-ros-base
 
 # =======================
 # global
@@ -9,11 +9,19 @@ From: ubuntu:16.04
     Version v0.0.1
 
 %help
-    Example recipe based on the official guides on how to build a container. This recipe contains three apps: fortune, cowsay and lowcat.
-    For more information check: https://docs.sylabs.io/guides/3.11/user-guide/build_a_container.html.
+    This recipe is built on top of a ros noetic base image and contains three example apps: 
+        - fortune.
+        - cowsay.
+        - lowcat.
+
+    It is based on the official guides on how to build a container. For more information check: https://docs.sylabs.io/guides/3.11/user-guide/build_a_container.html.
 
 %post
     apt-get -y update
+
+    # install tmux to work with terminal sessions.
+    # NOTE: this is expected to use the tracking mechanism proposed by this repository.
+    apt-get -y install tmux
 
     # link configuration file for custom environment
     ln -s /opt/host/99-sim_env.sh /.singularity.d/env/99-sim_env.sh
