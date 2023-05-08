@@ -4,10 +4,9 @@
 
 | **build script**                                        | **contains**                                       |
 | ------------------------------------------------------------- | -------------------------------------------------------- |
-| [recipes/01_minimal/build.sh](recipes/01_minimal/build.sh)       | ROS Noetic w/ Simulation                                 |
-| [recipes/02_with_husky/build.sh](recipes/02_with_husky/build.sh) | ROS Noetic w/ Simulation +[husky](https://github.com/husky) |
+| [recipes/00_cowsay/build.sh](recipes/00_cowsay/build.sh) | ROS Noetic base w/ three demonstration apps: lolcat, cowsay and fortune |
 
-2. Copy the [example_wrapper.sh](./example_wrapper.sh) (versioned example) into `wrapper.sh` (.gitignored). It will allow you to configure the wrapper for yourself.
+2. Copy the [example_wrapper.sh](./example_wrapper.sh) (versioned example) into `wrapper.sh` (.gitignored). It will allow you to configure the wrapper for your own use case.
 3. Run the Singularity container by issuing:
 
 ```bash
@@ -20,31 +19,25 @@ Now, you should see the terminal prompt of the singularity image, similar to thi
 [Singularity] user@hostname:~$
 ```
 
-4. To compile your software with the base dependencies, start by placing your packages into the `<singularity_images>/simulation/user_ros_workspace/src` folder of this repository.
-   As an example, let's clone the [clearpathrobotics/cpr_gazebo](https://github.com/clearpathrobotics/cpr_gazebo):
+4. To compile your software with the base dependencies, start by placing your packages into the `<trackin_ws>/src` folder of this repository.
 
-```bash
-cd user_ros_workspace/src
-git clone https://github.com/clearpathrobotics/cpr_gazebo.git
-```
-
-This host's computer folder is mounted into the container as `~/user_ros_workspace`.
+This host's computer folder is mounted into the container as `~/ros_ws`.
 You can then run the singularity image, init the workspace, and build the packages by:
 
 ```bash
-[Singularity]$ cd ~/user_ros_workspace/
+[Singularity]$ cd ~/ros_ws/
 [Singularity]$ catkin init
 [Singularity]$ catkin build
 ```
 
 Although the workspace resides on your host computer, the software cannot be run by the host system.
 The container fulfills the dependencies.
-To run the software, go into the singularity container (`./wrapper.sh`) and run the software through there. Assumes ROS Noetic w/ Simulation + husky:
+To run the software, go into the singularity container (`./wrapper.sh`) and run the software through there:
 
 ```bash
 ./wrapper.sh
-[Singularity] user@hostname:~$ source ~/user_ros_workspace/devel/setup.bash
-[Singularity] user@hostname:~$ roslaunch cpr_agriculture_gazebo agriculture_world.launch platform:=husky
+[Singularity] user@hostname:~$ source ~/ros_ws/devel/setup.bash
+[Singularity] user@hostname:~$ roslaunch <package> <launch_file>
 ```
 
 ## Default behavior
