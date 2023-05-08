@@ -26,7 +26,7 @@ MOUNT_PATH="$SINGULARITY_PATH/mount"
 # can run custom .sif <file>
 # use <file>.sif for normal container
 # use <folder>/ for sandbox container
-FILE_NAME=${1:-'simulation'}
+FILE_NAME=${1:-'cowsay'}
 CONTAINER_NAME="$FILE_NAME.sif"
 OVERLAY_NAME="$FILE_NAME.img"
 

@@ -4,7 +4,6 @@ SIM_LOCATION=/opt/host
 
 # link bash and zsh rc files
 [ ! -e ~/.bashrc ] &&  ln -s $SIM_LOCATION/singularity_bashrc.sh ~/.bashrc
-[ ! -e ~/.zshrc ] && ln -s $SIM_LOCATION/singularity_zshrc.sh ~/.zshrc
 [ ! -e ~/.profile ] && ln -s $SIM_LOCATION/singularity_profile.sh ~/.profile
 
 # link .tmux.conf

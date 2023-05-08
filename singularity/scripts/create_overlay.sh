@@ -10,7 +10,7 @@ OVERLAYS_PATH=$REPO_PATH/overlays
 
 ## | ------------------------ paths end ----------------------- |
 
-FILE_NAME=${1:-'simulation'}
+FILE_NAME=${1:-'cowsay'}
 OVERLAY_NAME="$FILE_NAME.img"
 OVERLAY_SIZE=500 # MB
 
