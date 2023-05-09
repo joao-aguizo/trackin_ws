@@ -1,4 +1,4 @@
-# Simulation
+# Singularity
 
 1. Build the desired Singularity's recipe:
 
